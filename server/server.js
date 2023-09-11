@@ -1,19 +1,32 @@
-const express = require('express')
-const app = express()
-const bodyParser = require('body-parser');
-const shipwreckRouter = require('./routes/shipwreck.route.js');
+const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io');
+const cors = require("cors")
 
+const app = express();
+const server = http.createServer(app);
 
-app.use(bodyParser.json());
+const io = socketIo(server, {
+    cors: {
+        origin: "http://localhost:3001",
+    }
+});
+app.use(cors);
 
-app.use('/shipwrecks', shipwreckRouter);
-
-app.get('/', function(req, res) {
-    res.send('Hello World')
+// Set up your other Express middleware and routes here
+app.get('/', (req, res) => {
+    io.emit('message', 'Hello World!');
+    res.send("Hello World");
 })
 
-const port = 8080
-
-app.listen(port, () =>{ 
-    console.log("Server listening on port "+ port)
+// Start the server
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
 });
+
+io.on('connection', (socket) =>{
+   socket.on('reach10', data =>{
+    console.log(data);
+   })
+})
