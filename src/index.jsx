@@ -8,7 +8,7 @@ import SelectCategory from './SelectCategory'
 import { BrowserRouter, Routes,Route } from "react-router-dom";
 import Multiplayer from './multiplayer';
 import MultiplayerChoice from './MultiplayerChoice';
-
+import CreateQuiz from './CreateQuiz';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,10 +17,12 @@ root.render(
         <Route path='/' element={<Home />} />
         <Route path='multiplayer' element={<Multiplayer/>}>
           <Route path='choice' element={<MultiplayerChoice/>}/>
+          {/* <Route path='room/:' element={</>}/> */}
         </Route>
         <Route path="/selectCategory" element={<SelectCategory />} />
         <Route path="/play" element={<Play />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path='/createQuiz' element={<CreateQuiz/>} />
     </Routes>
   </BrowserRouter>
 );
