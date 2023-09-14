@@ -11,6 +11,7 @@ import MultiplayerChoice from './MultiplayerChoice';
 import Results from './resultPage';
 import SignInPlayer from './signInPlayer';
 
+import CreateQuiz from './CreateQuiz';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,6 +20,7 @@ root.render(
         <Route path='/' element={<Home />} />
         <Route path='multiplayer' element={<Multiplayer/>}>
           <Route path='choice' element={<MultiplayerChoice/>}/>
+          {/* <Route path='room/:' element={</>}/> */}
         </Route>
         <Route path="/resultPage" element={<Results />} />
         <Route path="/signInPlayer" element={<SignInPlayer />} />
@@ -26,6 +28,7 @@ root.render(
         <Route path="/play" element={<Play />} />
 
         <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path='/createQuiz' element={<CreateQuiz/>} />
     </Routes>
   </BrowserRouter>
 );
