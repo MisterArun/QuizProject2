@@ -15,7 +15,12 @@ function Multiplayer() {
         navigate('choice');     
     }, [])
   return (
-    <socketContext.Provider value={socket.current}></socketContext.Provider>
+    
+    <socketContext.Provider value={socket.current}> <div>
+    <button>Join</button>
+    <button>Host</button>
+</div></socketContext.Provider>
+   
   )
 }
 
