@@ -10,6 +10,7 @@ import Multiplayer from './multiplayer';
 import MultiplayerChoice from './MultiplayerChoice';
 import Results from './resultPage';
 import SignInPlayer from './signInPlayer';
+import Room from './Room'
 
 import CreateQuiz from './CreateQuiz';
 
@@ -21,8 +22,8 @@ root.render(
         <Route path='multiplayer' element={<Multiplayer/>}>
           <Route path='choice' element={<MultiplayerChoice/>}/>
           <Route path="signInPlayer" element={<SignInPlayer />} />
-          {/* <Route path='room/:' element={</>}/> */}
         </Route>
+          <Route path='room/:roomId' element={<Room />}/> 
         <Route path="/resultPage" element={<Results />} />
         
         <Route path="/selectCategory" element={<SelectCategory />} />

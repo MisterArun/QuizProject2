@@ -1,7 +1,7 @@
   import React, { useState, useEffect } from "react";
   import io from "socket.io-client";
   import { openTDhost } from "./constants";
-  import { v4 as uuidv4 } from "uuid";
+  import { nanoid } from "nanoid";
 
   const socket = io("http://localhost:3000"); // Replace with your server URL
 
@@ -37,7 +37,7 @@
     }, []); 
 
     const handleCreateQuiz = () => {
-      const generateUniqueKey = uuidv4();
+      const generateUniqueKey = nanoid(5);
       setUniqueKey(generateUniqueKey);
 
       const quizData = {
@@ -114,9 +114,6 @@
               <button className="btn btn-primary my-3 p-3" onClick={handleCreateQuiz}>
                 Create Quiz
               </button>
-              <div className="alert alert-success mt-2" role="alert">
-                Quiz created with key: <strong>{uniqueKey}</strong>
-              </div>
             </div>
           </div>
         </div>
