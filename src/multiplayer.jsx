@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { socketContext } from './socketContext';
 const SERVER_HOST = 'http://localhost:3000'
@@ -17,8 +17,7 @@ function Multiplayer() {
   return (
     
     <socketContext.Provider value={socket.current}> <div>
-    <button>Join</button>
-    <button>Host</button>
+      <Outlet/>
 </div></socketContext.Provider>
    
   )

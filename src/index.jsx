@@ -20,10 +20,11 @@ root.render(
         <Route path='/' element={<Home />} />
         <Route path='multiplayer' element={<Multiplayer/>}>
           <Route path='choice' element={<MultiplayerChoice/>}/>
+          <Route path="signInPlayer" element={<SignInPlayer />} />
           {/* <Route path='room/:' element={</>}/> */}
         </Route>
         <Route path="/resultPage" element={<Results />} />
-        <Route path="/signInPlayer" element={<SignInPlayer />} />
+        
         <Route path="/selectCategory" element={<SelectCategory />} />
         <Route path="/play" element={<Play />} />
 
