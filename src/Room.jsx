@@ -1,8 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import io from 'socket.io-client';
 
 function Room() {
   const params = useParams();
+  const playerName = localStorage.getItem("username");
+  const roomId = params.roomId;
+
+  const [quizStarted, setQuizStarted] = useState(false);
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    const socket = io("http://localhost:3000");
+    setSocket(socket);
+
+    socket.on("connect", () => {
+      console.log("Connected to server");
+    });
+
+    socket.on("quizStarted", () => {
+      console.log("Quiz has started");
+      setQuizStarted(true);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  const startQuiz = () => {
+    socket.emit("startQuiz", roomId);
+  };
 
   return (
     <div className="container mt-5">
@@ -12,11 +41,17 @@ function Room() {
       <div className="row">
         <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2">
           <div className="form-group">
-            <label>Players: {}</label>
+            <label>Players: {playerName}</label>
           </div>
 
           <div className="text-center">
-            <button className="btn btn-primary my-3 p-3">Start Quiz</button>
+            {!quizStarted ? (
+              <button className="btn btn-primary my-3 p-3" onClick={startQuiz}>
+                Start Quiz
+              </button>
+            ) : (
+              <p>Quiz has started. Go to the quiz page...</p>
+            )}
             <div className="alert alert-success mt-2" role="alert">
               Quiz created with key: <strong>{params.roomId}</strong>
             </div>
