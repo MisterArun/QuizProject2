@@ -29,7 +29,6 @@ function Room() {
   }, [])
 
   
-
   return (
     <div className="container mt-5">
       <div className="text-center">
@@ -42,10 +41,17 @@ function Room() {
             <ul>{playersSigned.map((player, index) => (
                 <li key={index}>{player}</li>
               ))}</ul>
+            <label>Players: {playerName}</label>
           </div>
 
           <div className="text-center">
-            <button className="btn btn-primary my-3 p-3">Start Quiz</button>
+            {!quizStarted ? (
+              <button className="btn btn-primary my-3 p-3" onClick={startQuiz}>
+                Start Quiz
+              </button>
+            ) : (
+              <p>Quiz has started. Go to the quiz page...</p>
+            )}
             <div className="alert alert-success mt-2" role="alert">
               Quiz created with key: <strong>{params.roomId}</strong>
             </div>

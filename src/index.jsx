@@ -22,6 +22,7 @@ root.render(
         <Route path='multiplayer' element={<Multiplayer/>}>
           <Route path='choice' element={<MultiplayerChoice/>}/>
           <Route path="signInPlayer" element={<SignInPlayer />} />
+          <Route path='createQuiz' element={<CreateQuiz/>} />
         </Route>
           <Route path='room/:roomId' element={<Room />}/> 
         <Route path="/resultPage" element={<Results />} />
@@ -30,7 +31,6 @@ root.render(
         <Route path="/play" element={<Play />} />
 
         <Route path="/leaderboard" element={<Leaderboard />} />
-        <Route path='/createQuiz' element={<CreateQuiz/>} />
     </Routes>
   </BrowserRouter>
 );
