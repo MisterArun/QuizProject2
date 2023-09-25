@@ -1,8 +1,34 @@
-import React from "react";
+
+import React, { useState, useContext, useEffect } from "react";
+
 import { useParams } from "react-router-dom";
+import { socketContext } from './socketContext';
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:3000"); // Replace with your server URL
+
 
 function Room() {
   const params = useParams();
+  //const socket = useRef();
+  const [playersSigned, setPlayersSigned] = useState([]);
+  const playerArray = [];
+
+  useEffect(() => {
+    //socket.current = io('http://localhost:3000')
+
+    socket.on('playerJoined', (playerName) =>{ 
+      setPlayersSigned(playerName.map(player => player.name));
+      console.log("signed player"+ JSON.stringify(playerName))
+    playerArray.push(playerName);}
+   )
+    console.log("connected to web socket server");
+
+    console.log("connected to web socket server2");
+
+  }, [])
+
+  
 
   return (
     <div className="container mt-5">
@@ -12,7 +38,10 @@ function Room() {
       <div className="row">
         <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2">
           <div className="form-group">
-            <label>Players: {}</label>
+            <label>Players:</label>
+            <ul>{playersSigned.map((player, index) => (
+                <li key={index}>{player}</li>
+              ))}</ul>
           </div>
 
           <div className="text-center">

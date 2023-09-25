@@ -18,30 +18,37 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
+const rooms = {};
 
 io.on("connection", (socket) => {
   console.log("Client connected");
+
   
-const rooms = {};
 
-socket.on("createQuiz", (quizData) => {
-  const roomKey = quizData.key;
-  const room = {
-    difficulty: quizData.difficulty,
-    numberOfQuestions: quizData.numberOfQuestions,
-    categories: quizData.categories,
-    timer: quizData.timer,
-    players: [], 
-    quizQuestions: [], 
-  };
+  socket.on("createQuiz", (quizData) => {
+    const roomKey = quizData.key;
+    const room = {
+      difficulty: quizData.difficulty,
+      numberOfQuestions: quizData.numberOfQuestions,
+      categories: quizData.categories,
+      timer: quizData.timer,
+      players: [],
+      quizQuestions: [],
+    };
 
-  rooms[roomKey] = room;
+    rooms[roomKey] = room;
+    console.log("Rooms: " + JSON.stringify(rooms));
+    socket.emit('quizCreated', roomKey);
+  });
 
-  socket.emit('quizCreated', roomKey);
-});
+  socket.on('joinRoom', (playerData) => {
 
-  socket.on('joinRoom', (roomKey, playerName) => {
+    const playerName = playerData.username;
+    const roomKey = playerData.roomno;
+    console.log("Rooms: " + JSON.stringify(rooms));
     const room = rooms[roomKey];
+    console.log("Check room: ", room);
+    console.log("Room received:", roomKey);
     if (room) {
       socket.join(roomKey);
       console.log('socket.join(roomKey)');
@@ -50,6 +57,7 @@ socket.on("createQuiz", (quizData) => {
       io.to(roomKey).emit('playerJoined', room.players);
     } else {
       socket.emit('roomNotFound');
+      console.log("Room not found");
     }
   });
   socket.on('disconnect', () => {

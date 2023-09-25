@@ -30,6 +30,15 @@ function SignInPlayer() {
         socket.on("quizCreated", (roomKey) => {
           window.location.href = `/room/${roomKey}`;
         });
+
+      
+        socket.emit("joinRoom", playerData)
+
+        socket.on('playerJoined', (playerName) =>{ 
+          console.log("signed player"+ JSON.stringify(playerName))}
+       )
+
+       //socket.emit("playerJoined", playerData);
     }
   
 
